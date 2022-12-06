@@ -14,10 +14,14 @@ public class MouseMovingParticles : MonoBehaviour
     public GameObject steady;
     public GameObject chaotic;
 
+    public AITesting aiTesting;
+
+    public Material calmMaterial;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        aiTesting = GetComponent<AITesting>();
     }
 
     // Update is called once per frame
@@ -35,6 +39,7 @@ public class MouseMovingParticles : MonoBehaviour
         */
 
         print(mouseVelocity);
+
 
         if (mouseVelocity.x > 200f || mouseVelocity.y > 200f)
         {
