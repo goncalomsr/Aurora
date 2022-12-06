@@ -4957,6 +4957,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9520d3ea287abf408dcb8e373a9c539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  calmColor: {r: 0.2584905, g: 0.8324837, b: 1, a: 1}
+  steadyColor: {r: 1, g: 0.86849993, b: 0.390566, a: 1}
+  chaoticColor: {r: 0.6415094, g: 0, b: 0, a: 1}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -14932,6 +14935,5 @@ MonoBehaviour:
   calm: {fileID: 273644864}
   steady: {fileID: 1505520275}
   chaotic: {fileID: 562421689}
-  aiTesting: {fileID: 0}
-  calmMaterial: {fileID: 0}
-  steadyMaterial: {fileID: 0}
+  aiTesting: {fileID: 273644869}
+  calmMaterial: {fileID: 2100000, guid: 99f4aa58e68f40748a8a3cf800be0635, type: 2}
