@@ -30,6 +30,7 @@ public class Aurora_Steady_State : AStateBehaviour
     private float startScrollSpeed;
     private float startPositionAmount;
 
+    private float stateTimer = 0.0f;
     public override bool InitializeState()
     {
         ps = GetComponent<ParticleSystem>();
@@ -51,6 +52,8 @@ public class Aurora_Steady_State : AStateBehaviour
         timer = 0.0f;
         noiseTimer = 0.0f;
 
+        stateTimer = 0.0f;
+
         Debug.Log("Steady_State STARTED");
 
         gestureTracker.OnErraticMovementDetectedEvent += OnErraticMovement;
@@ -71,6 +74,12 @@ public class Aurora_Steady_State : AStateBehaviour
         noise.scrollSpeed = AuroraUtils.UpdateParticleEffectCurve(ps.noise.scrollSpeed, startScrollSpeed, scrollSpeed, noiseTimer);
         noise.positionAmount = AuroraUtils.UpdateParticleEffectCurve(ps.noise.positionAmount, startPositionAmount, positionAmount, noiseTimer);
         noise.frequency = AuroraUtils.Lerp(startFrequency, frequency, noiseTimer);
+
+
+        if (noiseTimer == 1)
+        {
+            stateTimer += Time.deltaTime;
+        }
     }
 
     public override void OnStateEnd()
@@ -78,6 +87,8 @@ public class Aurora_Steady_State : AStateBehaviour
         gestureTracker.OnErraticMovementDetectedEvent -= OnErraticMovement;
         gestureTracker.OnSlowMovementDetectedEvent -= OnSlowMovement;
         gestureTracker.OnChillMovementDetectedEvent -= OnChillMovement;
+
+        stateTimer = 0.0f;
     }
 
     public override int StateTransitionCondition()
@@ -92,16 +103,25 @@ public class Aurora_Steady_State : AStateBehaviour
 
     private void OnErraticMovement()
     {
+        if (stateTimer < 3f)
+            return;
+
         AssociatedStateMachine.SetState((int)EAuroraStates.Chaotic);
     }
 
     private void OnSlowMovement()
     {
+        if (stateTimer < 3f)
+            return;
+
         AssociatedStateMachine.SetState((int)EAuroraStates.Calm);
     }
 
     private void OnChillMovement()
     {
+        if (stateTimer < 3f)
+            return;
+
         AssociatedStateMachine.SetState((int)EAuroraStates.Idle);
     }
 }

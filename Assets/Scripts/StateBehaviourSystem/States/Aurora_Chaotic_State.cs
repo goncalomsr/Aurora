@@ -30,6 +30,8 @@ public class Aurora_Chaotic_State:AStateBehaviour
     private float startScrollSpeed;
     private float startPositionAmount;
 
+    private float stateTimer = 0.0f;
+
     public override bool InitializeState()
     {
         ps = GetComponent<ParticleSystem>();
@@ -51,6 +53,8 @@ public class Aurora_Chaotic_State:AStateBehaviour
         timer = 0.0f;
         noiseTimer = 0.0f;
 
+        stateTimer = 0.0f;
+
         Debug.Log("Chaotic_State STARTED");
 
         gestureTracker.OnChillMovementDetectedEvent += OnChillMovement;
@@ -70,12 +74,20 @@ public class Aurora_Chaotic_State:AStateBehaviour
         noise.scrollSpeed = AuroraUtils.UpdateParticleEffectCurve(ps.noise.scrollSpeed, startScrollSpeed, scrollSpeed, noiseTimer);
         noise.positionAmount = AuroraUtils.UpdateParticleEffectCurve(ps.noise.positionAmount, startPositionAmount, positionAmount, noiseTimer);
         noise.frequency = AuroraUtils.Lerp(startFrequency, frequency, noiseTimer);
+
+
+        if (noiseTimer == 1)
+        {
+            stateTimer += Time.deltaTime;
+        }
     }
 
     public override void OnStateEnd()
     {
         gestureTracker.OnChillMovementDetectedEvent -= OnChillMovement;
         gestureTracker.OnSpinningMovementDetectedEvent -= OnSpiningMovement;
+
+        stateTimer = 0.0f;
     }
 
     public override int StateTransitionCondition()
@@ -90,10 +102,16 @@ public class Aurora_Chaotic_State:AStateBehaviour
 
     private void OnChillMovement()
     {
+        if (stateTimer < 3f)
+            return;
+
         AssociatedStateMachine.SetState((int)EAuroraStates.Idle);
     }
     private void OnSpiningMovement()
     {
+        if (stateTimer < 3f)
+            return;
+
         AssociatedStateMachine.SetState((int)EAuroraStates.Steady);
     }
 }
