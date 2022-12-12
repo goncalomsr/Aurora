@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Aurora_Calm_State:AStateBehaviour
 {
+    [SerializeField] private InputGestureTracker gestureTracker;
+
     private ParticleSystem ps;
 
     [Header("Particles Behavior")]
@@ -50,6 +52,9 @@ public class Aurora_Calm_State:AStateBehaviour
         noiseTimer = 0.0f;
 
         Debug.Log("Calm_State STARTED");
+
+        gestureTracker.OnChillMovementDetectedEvent += OnChillMovement;
+        gestureTracker.OnSpinningMovementDetectedEvent += OnSpiningMovement;
     }
 
     public override void OnStateUpdate()
@@ -69,7 +74,8 @@ public class Aurora_Calm_State:AStateBehaviour
 
     public override void OnStateEnd()
     {
-
+        gestureTracker.OnChillMovementDetectedEvent -= OnChillMovement;
+        gestureTracker.OnSpinningMovementDetectedEvent -= OnSpiningMovement;
     }
 
     public override int StateTransitionCondition()
@@ -80,5 +86,15 @@ public class Aurora_Calm_State:AStateBehaviour
         }
 
         return (int)EAuroraStates.Invalid;
+    }
+
+    private void OnChillMovement()
+    {
+        AssociatedStateMachine.SetState((int)EAuroraStates.Idle);
+    }
+
+    private void OnSpiningMovement()
+    {
+        AssociatedStateMachine.SetState((int)EAuroraStates.Steady);
     }
 }

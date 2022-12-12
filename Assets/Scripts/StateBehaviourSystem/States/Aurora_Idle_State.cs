@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Aurora_Idle_State : AStateBehaviour
 {
+    [SerializeField] private InputGestureTracker gestureTracker;
+
     private ParticleSystem ps;
 
     [Header("Particles Behavior")]
@@ -50,6 +52,10 @@ public class Aurora_Idle_State : AStateBehaviour
         timer = 0.0f;
         noiseTimer = 0.0f;
 
+        gestureTracker.OnErraticMovementDetectedEvent += OnErraticMovement;
+        gestureTracker.OnSlowMovementDetectedEvent += OnSlowMovement;
+        gestureTracker.OnSpinningMovementDetectedEvent += OnSpiningMovement;
+
         Debug.Log("Idle_State STARTED");
     }
 
@@ -66,11 +72,15 @@ public class Aurora_Idle_State : AStateBehaviour
         noise.scrollSpeed = AuroraUtils.UpdateParticleEffectCurve(ps.noise.scrollSpeed, startScrollSpeed, scrollSpeed, noiseTimer);
         noise.positionAmount = AuroraUtils.UpdateParticleEffectCurve(ps.noise.positionAmount, startPositionAmount, positionAmount, noiseTimer);
         noise.frequency = AuroraUtils.Lerp(startFrequency, frequency, noiseTimer);
+
+
     }
 
     public override void OnStateEnd()
     {
-
+        gestureTracker.OnErraticMovementDetectedEvent -= OnErraticMovement;
+        gestureTracker.OnSlowMovementDetectedEvent -= OnSlowMovement;
+        gestureTracker.OnSpinningMovementDetectedEvent -= OnSpiningMovement;
     }
 
 
@@ -82,5 +92,20 @@ public class Aurora_Idle_State : AStateBehaviour
         }
 
         return (int)EAuroraStates.Invalid;
+    }
+
+    private void OnErraticMovement()
+    {
+        AssociatedStateMachine.SetState((int)EAuroraStates.Chaotic);
+    }
+
+    private void OnSlowMovement()
+    {
+        AssociatedStateMachine.SetState((int)EAuroraStates.Calm);
+    }
+
+    private void OnSpiningMovement()
+    {
+        AssociatedStateMachine.SetState((int)EAuroraStates.Steady);
     }
 }

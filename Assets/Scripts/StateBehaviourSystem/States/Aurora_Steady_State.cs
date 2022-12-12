@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Aurora_Steady_State : AStateBehaviour
 {
+    [SerializeField] private InputGestureTracker gestureTracker;
+
     private ParticleSystem ps;
 
     [Header("Particles Behavior")]
@@ -50,6 +52,10 @@ public class Aurora_Steady_State : AStateBehaviour
         noiseTimer = 0.0f;
 
         Debug.Log("Steady_State STARTED");
+
+        gestureTracker.OnErraticMovementDetectedEvent += OnErraticMovement;
+        gestureTracker.OnSlowMovementDetectedEvent += OnSlowMovement;
+        gestureTracker.OnChillMovementDetectedEvent += OnChillMovement;
     }
 
     public override void OnStateUpdate()
@@ -69,6 +75,9 @@ public class Aurora_Steady_State : AStateBehaviour
 
     public override void OnStateEnd()
     {
+        gestureTracker.OnErraticMovementDetectedEvent -= OnErraticMovement;
+        gestureTracker.OnSlowMovementDetectedEvent -= OnSlowMovement;
+        gestureTracker.OnChillMovementDetectedEvent -= OnChillMovement;
     }
 
     public override int StateTransitionCondition()
@@ -79,5 +88,20 @@ public class Aurora_Steady_State : AStateBehaviour
         }
 
         return (int)EAuroraStates.Invalid;
+    }
+
+    private void OnErraticMovement()
+    {
+        AssociatedStateMachine.SetState((int)EAuroraStates.Chaotic);
+    }
+
+    private void OnSlowMovement()
+    {
+        AssociatedStateMachine.SetState((int)EAuroraStates.Calm);
+    }
+
+    private void OnChillMovement()
+    {
+        AssociatedStateMachine.SetState((int)EAuroraStates.Idle);
     }
 }
