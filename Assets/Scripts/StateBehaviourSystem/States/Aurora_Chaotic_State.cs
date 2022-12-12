@@ -97,6 +97,11 @@ public class Aurora_Chaotic_State:AStateBehaviour
             return (int)EAuroraStates.Idle;
         }
 
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            return (int)EAuroraStates.Steady;
+        }
+
         return (int)EAuroraStates.Invalid;
     }
 

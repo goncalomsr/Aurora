@@ -96,6 +96,12 @@ public class Aurora_Calm_State:AStateBehaviour
             return (int)EAuroraStates.Steady;
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            return (int)EAuroraStates.Idle;
+        }
+
+
         return (int)EAuroraStates.Invalid;
     }
 
