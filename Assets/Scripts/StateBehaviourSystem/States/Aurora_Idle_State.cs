@@ -58,9 +58,9 @@ public class Aurora_Idle_State : AStateBehaviour
 
         stateTimer = 0.0f;
 
-        gestureTracker.OnErraticMovementDetectedEvent += OnErraticMovement;
-        gestureTracker.OnSlowMovementDetectedEvent += OnSlowMovement;
-        gestureTracker.OnSpinningMovementDetectedEvent += OnSpiningMovement;
+        //gestureTracker.OnErraticMovementDetectedEvent += OnErraticMovement;
+        //gestureTracker.OnSlowMovementDetectedEvent += OnSlowMovement;
+        //gestureTracker.OnSpinningMovementDetectedEvent += OnSpiningMovement;
 
         Debug.Log("Idle_State STARTED");
     }
@@ -87,9 +87,9 @@ public class Aurora_Idle_State : AStateBehaviour
 
     public override void OnStateEnd()
     {
-        gestureTracker.OnErraticMovementDetectedEvent -= OnErraticMovement;
-        gestureTracker.OnSlowMovementDetectedEvent -= OnSlowMovement;
-        gestureTracker.OnSpinningMovementDetectedEvent -= OnSpiningMovement;
+        //gestureTracker.OnErraticMovementDetectedEvent -= OnErraticMovement;
+        //gestureTracker.OnSlowMovementDetectedEvent -= OnSlowMovement;
+        //gestureTracker.OnSpinningMovementDetectedEvent -= OnSpiningMovement;
 
         stateTimer = 0.0f;
 
@@ -116,27 +116,27 @@ public class Aurora_Idle_State : AStateBehaviour
         return (int)EAuroraStates.Invalid;
     }
 
-    private void OnErraticMovement()
-    {
-        if (stateTimer < 3f)
-            return;
+    //private void OnErraticMovement()
+    //{
+    //    if (stateTimer < 3f)
+    //        return;
 
-        AssociatedStateMachine.SetState((int)EAuroraStates.Chaotic);
-    }
+    //    AssociatedStateMachine.SetState((int)EAuroraStates.Chaotic);
+    //}
 
-    private void OnSlowMovement()
-    {
-        if (stateTimer < 3f)
-            return;
+    //private void OnSlowMovement()
+    //{
+    //    if (stateTimer < 3f)
+    //        return;
 
-        AssociatedStateMachine.SetState((int)EAuroraStates.Calm);
-    }
+    //    AssociatedStateMachine.SetState((int)EAuroraStates.Calm);
+    //}
 
-    private void OnSpiningMovement()
-    {
-        if (stateTimer < 3f)
-            return;
+    //private void OnSpiningMovement()
+    //{
+    //    if (stateTimer < 3f)
+    //        return;
 
-        AssociatedStateMachine.SetState((int)EAuroraStates.Steady);
-    }
+    //    AssociatedStateMachine.SetState((int)EAuroraStates.Steady);
+    //}
 }

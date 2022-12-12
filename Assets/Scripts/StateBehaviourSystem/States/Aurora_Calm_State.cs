@@ -56,8 +56,8 @@ public class Aurora_Calm_State:AStateBehaviour
 
         Debug.Log("Calm_State STARTED");
 
-        gestureTracker.OnChillMovementDetectedEvent += OnChillMovement;
-        gestureTracker.OnSpinningMovementDetectedEvent += OnSpiningMovement;
+        //gestureTracker.OnChillMovementDetectedEvent += OnChillMovement;
+        //gestureTracker.OnSpinningMovementDetectedEvent += OnSpiningMovement;
     }
 
     public override void OnStateUpdate()
@@ -83,8 +83,8 @@ public class Aurora_Calm_State:AStateBehaviour
 
     public override void OnStateEnd()
     {
-        gestureTracker.OnChillMovementDetectedEvent -= OnChillMovement;
-        gestureTracker.OnSpinningMovementDetectedEvent -= OnSpiningMovement;
+        //gestureTracker.OnChillMovementDetectedEvent -= OnChillMovement;
+        //gestureTracker.OnSpinningMovementDetectedEvent -= OnSpiningMovement;
 
         stateTimer = 0.0f;
     }
@@ -105,19 +105,19 @@ public class Aurora_Calm_State:AStateBehaviour
         return (int)EAuroraStates.Invalid;
     }
 
-    private void OnChillMovement()
-    {
-        if (stateTimer < 3f)
-            return;
+    //private void OnChillMovement()
+    //{
+    //    if (stateTimer < 3f)
+    //        return;
 
-        AssociatedStateMachine.SetState((int)EAuroraStates.Idle);
-    }
+    //    AssociatedStateMachine.SetState((int)EAuroraStates.Idle);
+    //}
 
-    private void OnSpiningMovement()
-    {
-        if (stateTimer < 3f)
-            return;
+    //private void OnSpiningMovement()
+    //{
+    //    if (stateTimer < 3f)
+    //        return;
 
-        AssociatedStateMachine.SetState((int)EAuroraStates.Steady);
-    }
+    //    AssociatedStateMachine.SetState((int)EAuroraStates.Steady);
+    //}
 }
