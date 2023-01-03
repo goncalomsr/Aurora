@@ -54,11 +54,6 @@ public class Aurora_Chaotic_State:AStateBehaviour
         noiseTimer = 0.0f;
 
         stateTimer = 0.0f;
-
-        Debug.Log("Chaotic_State STARTED");
-
-        //gestureTracker.OnChillMovementDetectedEvent += OnChillMovement;
-        //gestureTracker.OnSpinningMovementDetectedEvent += OnSpiningMovement;
     }
 
     public override void OnStateUpdate()
@@ -84,8 +79,7 @@ public class Aurora_Chaotic_State:AStateBehaviour
 
     public override void OnStateEnd()
     {
-        gestureTracker.OnChillMovementDetectedEvent -= OnChillMovement;
-        gestureTracker.OnSpinningMovementDetectedEvent -= OnSpiningMovement;
+;
 
         stateTimer = 0.0f;
     }
@@ -105,18 +99,4 @@ public class Aurora_Chaotic_State:AStateBehaviour
         return (int)EAuroraStates.Invalid;
     }
 
-    //private void OnChillMovement()
-    //{
-    //    if (stateTimer < 3f)
-    //        return;
-
-    //    AssociatedStateMachine.SetState((int)EAuroraStates.Idle);
-    //}
-    //private void OnSpiningMovement()
-    //{
-    //    if (stateTimer < 3f)
-    //        return;
-
-    //    AssociatedStateMachine.SetState((int)EAuroraStates.Steady);
-    //}
 }

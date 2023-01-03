@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 4743242152366803555}
   - component: {fileID: 4743242152366803557}
   - component: {fileID: 4743242152366803554}
+  - component: {fileID: 2035752780521759969}
+  - component: {fileID: 6136010860636437316}
   m_Layer: 0
   m_Name: Particles AI
   m_TagString: Untagged
@@ -4856,6 +4858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bae89ee0ff01d964f9352d140e333761, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gestureTracker: {fileID: 0}
   strength: 0
   frequency: 0
   scrollSpeed: 0
@@ -4875,6 +4878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6d44a440b6649444a608809565b4912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gestureTracker: {fileID: 0}
   strength: 2
   frequency: 0.5
   scrollSpeed: 1
@@ -4894,6 +4898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 600971721f5aff44790006ccacbb87d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gestureTracker: {fileID: 0}
   strength: 2
   frequency: 1
   scrollSpeed: 2
@@ -4913,6 +4918,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c3ddfa84db648439a5e1470f1f0d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gestureTracker: {fileID: 0}
   strength: 3
   frequency: 2
   scrollSpeed: 3
@@ -4920,3 +4926,52 @@ MonoBehaviour:
   newColor: {r: 1, g: 0.38176283, b: 0, a: 0}
   colorChangeDuration: 2
   noiseChangeDuration: 5
+--- !u!114 &2035752780521759969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4743242152366803556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e946d32385beda445b5e7dbbcbebae4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  magnitudeThreshold: 100
+  maxIdleTimeBeforeReset: 3
+  onFindCombinationGracePeriod: 1
+  maxCachedDirectionListSize: 5
+  useCardinalDirectionsOnly: 1
+  possibleActionList:
+  - Name: Test Combiantion 1
+    comboDirections: 000000000400000002000000
+  - Name: Test Combination 2
+    comboDirections: 000000000200000006000000
+  OnComboFoundEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6136010860636437316}
+        m_TargetAssemblyTypeName: ConvertEventStringToStateMachine, Assembly-CSharp
+        m_MethodName: OnComboFound
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6136010860636437316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4743242152366803556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aac62793688a2c4c85db737be9370a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
